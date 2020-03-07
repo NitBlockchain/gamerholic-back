@@ -45,12 +45,7 @@ const salt = bcrypt.genSaltSync(saltRounds);
 const querystring = require('querystring');
 const nonce = require('nonce')();
 ///https://www.npmjs.com/package/nonce
-const accountSid = 'ACbbc227cd6b30229125cad037a2d76225'; // Your Account SID from www.twilio.com/console
-const authToken = '520b227fda723c9da32633ad71a9f7b2';   // Your Auth Token from www.twilio.com/console
-
-const twilio = require('twilio')
-const TwilioClient = new twilio(accountSid, authToken);
-///https://github.com/axios/axios
+///https://github.com/axios/axioss
 const POST = axios.create();
 POST.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 

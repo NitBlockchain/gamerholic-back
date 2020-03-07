@@ -56,13 +56,7 @@
 // var WALLETBTC = require('blockchain.info/MyWallet')
 // let options = { apiCode: process.env.BTC_API, apiHost: 'https://www.btc.grabbit.cheap', secondPassword: process.env.BTC_PASS_2 }
 // let BTCWALLET = new WALLETBTC(process.env.BTC_GUID, process.env.BTC_PASS, options)
-//
-// const accountSid = 'ACbbc227cd6b30229125cad037a2d76225'; // Your Account SID from www.twilio.com/console
-// const authToken = '520b227fda723c9da32633ad71a9f7b2';   // Your Auth Token from www.twilio.com/console
-//
-// const twilio = require('twilio')
-// const TwilioClient = new twilio(accountSid, authToken);
-//
+////
 // export class GameController {
 //
 //   private gameR = getRepository(Game);
