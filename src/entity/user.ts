@@ -31,6 +31,9 @@ export class user extends BaseEntity {
   @Column("json", { nullable: true })
   wallet: any; // [owo] [bitcoin]
 
+  @Column("json", { nullable: true })
+  walletsponsor: any; //this users sponsored wallets
+
   @Column({ type: 'int', nullable: true, default: '0' })/// 0 user is not logged in 1 user is logged in
   active: number;
 
@@ -90,6 +93,11 @@ export class user extends BaseEntity {
       .getOne();
   }
 
+  static async bWALLETS(zero: string) {
+    return await this.createQueryBuilder("user")
+      .where(`user.walletsponsor ::jsonb @> \'{"claimed":"${zero}"}\'`)
+      .getOne();
+  }
 
 
 

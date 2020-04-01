@@ -19,12 +19,12 @@ class EmailService {
       '<mj-body>' +
       '<mj-section>' +
       '<mj-column>' +
-      '<mj-image width="162px" src="https://i.imgur.com/sqqQeZa.png"></mj-image>' +
+      '<mj-image width="162px" src="https://i.imgur.com/XMpd8Tk.png"></mj-image>' +
       '</mj-column>' +
       '</mj-section>' +
       '<mj-section background-color="#f3f3f3">' +
       '<mj-column>' +
-      '<mj-image width="170px" src="https://i.imgur.com/kxpyqNN.png"></mj-image>' +
+      '<mj-image width="170px" src="https://i.imgur.com/DWu1qwb.png"></mj-image>' +
       '</mj-column>' +
       '<mj-column>' +
       '<mj-text font-weight="bold" align="justify" font-size="24px" color="#000" font-family="helvetica">' + subject + '</mj-text>' +

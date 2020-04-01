@@ -7,8 +7,11 @@ import { chat } from "../entity/chat";
 const DCHAT = chat
 import { game } from "../entity/challenges";
 const DGAME = game
-// import { Game } from "../entity/Game";
+import { referee } from "../entity/refs";
+const DREF = referee
 
+// import { Game } from "../entity/Game";
+const uniqid = require('uniqid');
 import { hash, compare } from 'bcryptjs';
 import * as bcrypt from "bcryptjs";
 import { $log } from "ts-log-debug";
@@ -260,8 +263,12 @@ export class UserController {
 
                 //get users active  games
                 let games = await DGAME.bMyGames(user)
+                let ref = await DREF.gREF(user)
+                let refsonline = await DREF.bREFS()
+                let sponsorWallets = await DUSER.bWALLETS('0')
+
                 // $log.info(games)
-                let payload = await Promise.all([jordi, games])
+                let payload = await Promise.all([jordi, games, ref, refsonline, sponsorWallets])
                 // $log.info(OWOVALUE)
                 const json = { success: true, payload: payload, btc_value: btc_value, btc_fee: Tfee, btc_fee_usd: Tfee_usd, owoValue: OWOVALUE }
                 response.statusCode = 200;
@@ -303,19 +310,27 @@ export class UserController {
       const token = request.body.token;
       const user = request.body.user;
       const profile = request.body.profile;
-
+      // let b = uniqid(profile, user)
+      // $log.info(a, b)
       let authen: any = await authservice.auth(user, token)
       if (authen.success) {
+
         ///global chat
-        await DUSER.gID(profile)
-          .then(async (user: any) => {
+        let identifier = user.concat(profile)
+        let USER = await DUSER.gID(profile)
+        let CHATS = await DCHAT.gCHATS(identifier)
+        if (!CHATS) {
+          identifier = profile.concat(user)
+          CHATS = await DCHAT.gCHATS(identifier)
 
-            $log.info(profile)
-            const json = { success: true, payload: user }
-            response.statusCode = 200;
-            response.send(json)
+        }
+        $log.info(CHATS)
 
-          })
+        let payload: any = await Promise.all([USER, CHATS])
+
+        const json = { success: true, payload: payload }
+        response.statusCode = 200;
+        response.send(json)
 
 
       } else {
@@ -1363,6 +1378,93 @@ export class UserController {
 
 
         }
+
+
+      } else {
+
+        const json = { success: false, message: 'login' };
+        response.statusCode = 200;
+        response.send(json)
+
+      }
+    } catch (err) {
+      $log.info('gUSER error ' + err)
+
+    }
+  }
+
+  async CHATDIRECT(request: Request, response: Response, next: NextFunction) {
+
+    try {
+
+      const token = request.body.token;
+      const user = request.body.user;
+      const message = request.body.message;
+      const profile = request.body.profile;
+      let authen: any = await authservice.auth(user, token)
+      if (authen.success) {
+
+        let USER = authen.payload
+        let identifier = user.concat(profile)
+        let CHAT = await DCHAT.gCHATS(identifier)
+        if (!CHAT) {
+          identifier = profile.concat(user)
+          CHAT = await DCHAT.gCHATS(identifier)
+
+        }
+
+        if (CHAT) {
+
+          let now = moment().toDate();
+
+          let obj: any = new Object()
+          obj.fromID = USER.user
+          obj.from = USER.profile.name
+          obj.fromAvatar = USER.profile.avatar
+          obj.message = message
+          obj.date = now
+
+          CHAT.messages.push(obj)
+          DCHAT.save(CHAT)
+          const json = { success: true, message: 'message added' }
+          response.statusCode = 200;
+          response.send(json)
+
+        } else {
+          //
+          let now = moment().toDate();
+
+          let D: any = []
+          let obj: any = new Object()
+          obj.fromID = USER.user
+          obj.from = USER.profile.name
+          obj.fromAvatar = USER.profile.avatar
+          obj.message = message
+          obj.date = now
+
+          D.push(obj)
+
+          let U: any = []
+          let o: any = new Object()
+          o.user1 = user
+          o.user2 = profile
+          U.push(o)
+
+          // $log.info(D)
+          let i = user.concat(profile);
+          let chat: any = new DCHAT()
+          chat.identifier = i
+          chat.type = 2
+          chat.messages = D
+          chat.users = U
+          DCHAT.save(chat)
+
+          const json = { success: true, message: 'message added' }
+          response.statusCode = 200;
+          response.send(json)
+
+        }
+
 
 
       } else {

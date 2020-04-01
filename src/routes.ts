@@ -1,5 +1,5 @@
 import { UserController } from "./controller/UserController";
-// import { GameController } from "./controller/GameController";
+import { GameController } from "./controller/GameController";
 
 
 export const Routes = [
@@ -54,6 +54,12 @@ export const Routes = [
   },
   {
     method: "post",
+    route: "/chatDirect",
+    controller: UserController,
+    action: "CHATDIRECT"
+  },
+  {
+    method: "post",
     route: "/gchat",
     controller: UserController,
     action: "gCHAT"
@@ -100,5 +106,28 @@ export const Routes = [
     controller: UserController,
     action: "WITHDRAW"
   },
-
+  {
+    method: "post",
+    route: "/gTOURNYS",
+    controller: GameController,
+    action: "gTOURNYS"
+  },
+  {
+    method: "post",
+    route: "/gTOURNY",
+    controller: GameController,
+    action: "gTOURNY"
+  },
+  {
+    method: "post",
+    route: "/refOnline",
+    controller: GameController,
+    action: "refOnline"
+  },
+  {
+    method: "post",
+    route: "/createSponsorWallet",
+    controller: GameController,
+    action: "createSponsorWallet"
+  },
 ];

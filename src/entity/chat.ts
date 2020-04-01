@@ -19,10 +19,25 @@ export class chat extends BaseEntity {
   @CreateDateColumn()
   date_created: string;
 
+  @Column("json", { nullable: true })
+  users: any;
+
   @Column({ type: 'int', nullable: true, default: '0' })/// global,tournament,DM
   type: number;
 
-
+  // static gCHATS(user1: any, user2: any) {
+  //   return this.createQueryBuilder("chat")
+  //     .where("chat.identifier = :identifier", { identifier: identifier })
+  //     .andWhere("chat.user2 = :user2", { user2: user2 })
+  //     .orWhere("chat.user1  = :user2", { user2: user2 })
+  //     .andWhere("chat.user2 = :user1", { user1: user1 })
+  //     .getOne();
+  // }
+  static gCHATS(identifier: any) {
+    return this.createQueryBuilder("chat")
+      .where("chat.identifier = :identifier", { identifier: identifier })
+      .getOne();
+  }
   static async gMyChats(user: string) {
     return await this.createQueryBuilder("game")
       .where("identifier = :identifier", { identifier: user })
