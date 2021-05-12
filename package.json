@@ -34,7 +34,7 @@
       "facebook-login": "^1.4.0",
       "fetch": "^1.1.0",
       "mailgun-js": "^0.22.0",
-      "mathjs": "^5.10.3",
+      "mathjs": "^7.5.1",
       "mjml": "^4.4.0-beta.1",
       "moment": "^2.24.0",
       "moment-countdown": "0.0.3",
