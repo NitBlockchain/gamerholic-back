@@ -36,7 +36,7 @@
       "mailgun-js": "^0.22.0",
       "mathjs": "^5.10.3",
       "mjml": "^4.4.0-beta.1",
-      "moment": "^2.24.0",
+      "moment": "^2.29.2",
       "moment-countdown": "0.0.3",
       "node-fetch": "^2.5.0",
       "nonce": "^1.0.4",
