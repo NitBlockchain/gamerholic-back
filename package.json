@@ -28,7 +28,7 @@
       "countdown": "^2.6.0",
       "country-telephone-code": "^0.2.0",
       "dotenv": "^4.0.0",
-      "express": "^4.15.4",
+      "express": "^4.17.3",
       "express-session": "^1.15.6",
       "express-validator": "^2.21.0",
       "facebook-login": "^1.4.0",
